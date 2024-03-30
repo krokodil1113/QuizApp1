@@ -1,0 +1,99 @@
+entity Quiz {
+  title String required,
+  description TextBlob,
+  difficultyLevel Integer,
+  isPublished Boolean required,
+  publishDate LocalDate
+}
+relationship ManyToOne {
+  Quiz{creator} to QuizUser
+}
+
+entity Category {
+  name String required,
+  description String
+}
+relationship OneToMany {
+  Category to Quiz{category}
+}
+
+entity Question {
+  text String required
+}
+relationship ManyToOne {
+  Question{quiz} to Quiz
+}
+
+entity Answer {
+  text String required,
+  isCorrect Boolean required
+}
+relationship ManyToOne {
+  Answer{question} to Question
+}
+
+entity QuizAttempt {
+  startTime ZonedDateTime,
+  endTime ZonedDateTime,
+  score Integer
+}
+relationship ManyToOne {
+  QuizAttempt{quiz} to Quiz,
+  QuizAttempt{user} to QuizUser
+}
+
+entity UserAnswer {
+  customAnswerText String
+}
+relationship ManyToOne {
+  UserAnswer{attempt} to QuizAttempt,
+  UserAnswer{question} to Question,
+  UserAnswer{selectedAnswer} to Answer
+}
+
+entity QuizRating {
+  rating Integer,
+  comment TextBlob
+}
+relationship ManyToOne {
+  QuizRating{quiz} to Quiz,
+  QuizRating{user} to QuizUser
+}
+
+entity Feedback {
+  content TextBlob required,
+  createDate LocalDate
+}
+relationship ManyToOne {
+  Feedback{user} to QuizUser
+}
+
+entity QuizAnalytics {
+  totalAttempts Integer,
+  averageScore Double,
+  completionRate Double
+}
+relationship OneToOne {
+  Quiz to QuizAnalytics
+}
+
+entity QuizUser {
+  nickname String,
+  bio TextBlob
+}
+relationship OneToOne {
+  QuizUser{user} to User with builtInEntity
+}
+
+entity UserStatistics {
+  totalQuizzesTaken Integer,
+  totalScore Integer,
+  averageScore Double
+}
+relationship OneToOne {
+  UserStatistics to QuizUser
+}
+
+paginate all with pagination
+service all with serviceClass
+dto all with mapstruct

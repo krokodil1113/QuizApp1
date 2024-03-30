@@ -17,7 +17,27 @@
     <property name="datetimeType" value="datetime" dbms="postgresql"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240326233228_added_entity_Quiz.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240326233229_added_entity_Category.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240326233230_added_entity_Question.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240326233231_added_entity_Answer.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240326233232_added_entity_QuizAttempt.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240326233233_added_entity_UserAnswer.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240326233234_added_entity_QuizRating.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240326233235_added_entity_Feedback.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240326233236_added_entity_QuizAnalytics.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240326233237_added_entity_QuizUser.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240326233238_added_entity_UserStatistics.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20240326233228_added_entity_constraints_Quiz.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240326233230_added_entity_constraints_Question.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240326233231_added_entity_constraints_Answer.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240326233232_added_entity_constraints_QuizAttempt.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240326233233_added_entity_constraints_UserAnswer.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240326233234_added_entity_constraints_QuizRating.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240326233235_added_entity_constraints_Feedback.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240326233237_added_entity_constraints_QuizUser.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240326233238_added_entity_constraints_UserStatistics.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (userStatistics) {
+      <div>
+        <h2 data-cy="userStatisticsDetailsHeading"><span jhiTranslate="quizApp.userStatistics.detail.title">User Statistics</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ userStatistics.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="quizApp.userStatistics.totalQuizzesTaken">Total Quizzes Taken</span></dt>
+          <dd>
+            <span>{{ userStatistics.totalQuizzesTaken }}</span>
+          </dd>
+          <dt><span jhiTranslate="quizApp.userStatistics.totalScore">Total Score</span></dt>
+          <dd>
+            <span>{{ userStatistics.totalScore }}</span>
+          </dd>
+          <dt><span jhiTranslate="quizApp.userStatistics.averageScore">Average Score</span></dt>
+          <dd>
+            <span>{{ userStatistics.averageScore }}</span>
+          </dd>
+          <dt><span jhiTranslate="quizApp.userStatistics.quizUser">Quiz User</span></dt>
+          <dd>
+            @if (userStatistics.quizUser) {
+              <div>
+                <a [routerLink]="['/quiz-user', userStatistics.quizUser.id, 'view']">{{ userStatistics.quizUser.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/user-statistics', userStatistics.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

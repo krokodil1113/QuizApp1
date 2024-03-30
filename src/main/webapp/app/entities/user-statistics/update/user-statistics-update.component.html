@@ -1,0 +1,95 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-user-statistics-heading"
+        data-cy="UserStatisticsCreateUpdateHeading"
+        jhiTranslate="quizApp.userStatistics.home.createOrEditLabel"
+      >
+        Create or edit a User Statistics
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="quizApp.userStatistics.totalQuizzesTaken" for="field_totalQuizzesTaken"
+            >Total Quizzes Taken</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="totalQuizzesTaken"
+            id="field_totalQuizzesTaken"
+            data-cy="totalQuizzesTaken"
+            formControlName="totalQuizzesTaken"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="quizApp.userStatistics.totalScore" for="field_totalScore">Total Score</label>
+          <input
+            type="number"
+            class="form-control"
+            name="totalScore"
+            id="field_totalScore"
+            data-cy="totalScore"
+            formControlName="totalScore"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="quizApp.userStatistics.averageScore" for="field_averageScore">Average Score</label>
+          <input
+            type="number"
+            class="form-control"
+            name="averageScore"
+            id="field_averageScore"
+            data-cy="averageScore"
+            formControlName="averageScore"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="quizApp.userStatistics.quizUser" for="field_quizUser">Quiz User</label>
+          <select
+            class="form-control"
+            id="field_quizUser"
+            data-cy="quizUser"
+            name="quizUser"
+            formControlName="quizUser"
+            [compareWith]="compareQuizUser"
+          >
+            <option [ngValue]="null"></option>
+            @for (quizUserOption of quizUsersCollection; track $index) {
+              <option [ngValue]="quizUserOption">{{ quizUserOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

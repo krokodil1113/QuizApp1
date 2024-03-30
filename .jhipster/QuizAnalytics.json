@@ -1,0 +1,34 @@
+{
+  "annotations": {
+    "changelogDate": "20240326233236"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "totalAttempts",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "averageScore",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "completionRate",
+      "fieldType": "Double"
+    }
+  ],
+  "name": "QuizAnalytics",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "quiz",
+      "otherEntityRelationshipName": "quizAnalytics",
+      "relationshipName": "quiz",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

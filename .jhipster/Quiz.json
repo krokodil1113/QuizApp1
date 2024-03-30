@@ -1,0 +1,57 @@
+{
+  "annotations": {
+    "changelogDate": "20240326233228"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "difficultyLevel",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "isPublished",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "publishDate",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "name": "Quiz",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "quizAnalytics",
+      "otherEntityRelationshipName": "quiz",
+      "relationshipName": "quizAnalytics",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "quizUser",
+      "relationshipName": "creator",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "category",
+      "relationshipName": "category",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

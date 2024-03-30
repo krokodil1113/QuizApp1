@@ -1,0 +1,27 @@
+{
+  "quizApp": {
+    "quizRating": {
+      "home": {
+        "title": "Quiz Ratings",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Quiz Rating",
+        "createOrEditLabel": "Create or edit a Quiz Rating",
+        "notFound": "No Quiz Ratings found"
+      },
+      "created": "A new Quiz Rating is created with identifier {{ param }}",
+      "updated": "A Quiz Rating is updated with identifier {{ param }}",
+      "deleted": "A Quiz Rating is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Quiz Rating {{ id }}?"
+      },
+      "detail": {
+        "title": "Quiz Rating"
+      },
+      "id": "ID",
+      "rating": "Rating",
+      "comment": "Comment",
+      "quiz": "Quiz",
+      "user": "User"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "quizApp": {
+    "quizUser": {
+      "home": {
+        "title": "Quiz Users",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Quiz User",
+        "createOrEditLabel": "Create or edit a Quiz User",
+        "notFound": "No Quiz Users found"
+      },
+      "created": "A new Quiz User is created with identifier {{ param }}",
+      "updated": "A Quiz User is updated with identifier {{ param }}",
+      "deleted": "A Quiz User is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Quiz User {{ id }}?"
+      },
+      "detail": {
+        "title": "Quiz User"
+      },
+      "id": "ID",
+      "nickname": "Nickname",
+      "bio": "Bio",
+      "user": "User",
+      "userStatistics": "User Statistics"
+    }
+  }
+}

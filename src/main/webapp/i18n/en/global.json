@@ -8,7 +8,17 @@
       "entities": {
         "main": "Entities",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
-        "adminAuthority": "Authority"
+        "quiz": "Quiz",
+        "category": "Category",
+        "question": "Question",
+        "answer": "Answer",
+        "quizAttempt": "Quiz Attempt",
+        "userAnswer": "User Answer",
+        "quizRating": "Quiz Rating",
+        "feedback": "Feedback",
+        "quizAnalytics": "Quiz Analytics",
+        "quizUser": "Quiz User",
+        "userStatistics": "User Statistics"
       },
       "account": {
         "main": "Account",

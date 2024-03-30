@@ -1,0 +1,74 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (quiz) {
+      <div>
+        <h2 data-cy="quizDetailsHeading"><span jhiTranslate="quizApp.quiz.detail.title">Quiz</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ quiz.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="quizApp.quiz.title">Title</span></dt>
+          <dd>
+            <span>{{ quiz.title }}</span>
+          </dd>
+          <dt><span jhiTranslate="quizApp.quiz.description">Description</span></dt>
+          <dd>
+            <span>{{ quiz.description }}</span>
+          </dd>
+          <dt><span jhiTranslate="quizApp.quiz.difficultyLevel">Difficulty Level</span></dt>
+          <dd>
+            <span>{{ quiz.difficultyLevel }}</span>
+          </dd>
+          <dt><span jhiTranslate="quizApp.quiz.isPublished">Is Published</span></dt>
+          <dd>
+            <span>{{ quiz.isPublished }}</span>
+          </dd>
+          <dt><span jhiTranslate="quizApp.quiz.publishDate">Publish Date</span></dt>
+          <dd>
+            <span>{{ quiz.publishDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="quizApp.quiz.quizAnalytics">Quiz Analytics</span></dt>
+          <dd>
+            @if (quiz.quizAnalytics) {
+              <div>
+                <a [routerLink]="['/quiz-analytics', quiz.quizAnalytics.id, 'view']">{{ quiz.quizAnalytics.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="quizApp.quiz.creator">Creator</span></dt>
+          <dd>
+            @if (quiz.creator) {
+              <div>
+                <a [routerLink]="['/quiz-user', quiz.creator.id, 'view']">{{ quiz.creator.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="quizApp.quiz.category">Category</span></dt>
+          <dd>
+            @if (quiz.category) {
+              <div>
+                <a [routerLink]="['/category', quiz.category.id, 'view']">{{ quiz.category.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/quiz', quiz.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,27 @@
+{
+  "quizApp": {
+    "quizAnalytics": {
+      "home": {
+        "title": "Quiz Analytics",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Quiz Analytics",
+        "createOrEditLabel": "Create or edit a Quiz Analytics",
+        "notFound": "No Quiz Analytics found"
+      },
+      "created": "A new Quiz Analytics is created with identifier {{ param }}",
+      "updated": "A Quiz Analytics is updated with identifier {{ param }}",
+      "deleted": "A Quiz Analytics is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Quiz Analytics {{ id }}?"
+      },
+      "detail": {
+        "title": "Quiz Analytics"
+      },
+      "id": "ID",
+      "totalAttempts": "Total Attempts",
+      "averageScore": "Average Score",
+      "completionRate": "Completion Rate",
+      "quiz": "Quiz"
+    }
+  }
+}

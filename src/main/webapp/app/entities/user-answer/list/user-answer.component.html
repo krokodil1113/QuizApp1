@@ -1,0 +1,144 @@
+<div>
+  <h2 id="page-heading" data-cy="UserAnswerHeading">
+    <span jhiTranslate="quizApp.userAnswer.home.title">User Answers</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="quizApp.userAnswer.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-user-answer"
+        [routerLink]="['/user-answer/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="quizApp.userAnswer.home.createLabel">Create a new User Answer</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (userAnswers?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="quizApp.userAnswer.home.notFound">No User Answers found</span>
+    </div>
+  }
+
+  @if (userAnswers && userAnswers.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="customAnswerText">
+              <div class="d-flex">
+                <span jhiTranslate="quizApp.userAnswer.customAnswerText">Custom Answer Text</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="attempt.id">
+              <div class="d-flex">
+                <span jhiTranslate="quizApp.userAnswer.attempt">Attempt</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="question.id">
+              <div class="d-flex">
+                <span jhiTranslate="quizApp.userAnswer.question">Question</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="selectedAnswer.id">
+              <div class="d-flex">
+                <span jhiTranslate="quizApp.userAnswer.selectedAnswer">Selected Answer</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (userAnswer of userAnswers; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/user-answer', userAnswer.id, 'view']">{{ userAnswer.id }}</a>
+              </td>
+              <td>{{ userAnswer.customAnswerText }}</td>
+              <td>
+                @if (userAnswer.attempt) {
+                  <div>
+                    <a [routerLink]="['/quiz-attempt', userAnswer.attempt.id, 'view']">{{ userAnswer.attempt.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (userAnswer.question) {
+                  <div>
+                    <a [routerLink]="['/question', userAnswer.question.id, 'view']">{{ userAnswer.question.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (userAnswer.selectedAnswer) {
+                  <div>
+                    <a [routerLink]="['/answer', userAnswer.selectedAnswer.id, 'view']">{{ userAnswer.selectedAnswer.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/user-answer', userAnswer.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                  </a>
+
+                  <a [routerLink]="['/user-answer', userAnswer.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(userAnswer)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (userAnswers && userAnswers.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

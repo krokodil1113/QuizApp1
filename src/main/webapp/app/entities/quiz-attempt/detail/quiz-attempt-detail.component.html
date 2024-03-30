@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (quizAttempt) {
+      <div>
+        <h2 data-cy="quizAttemptDetailsHeading"><span jhiTranslate="quizApp.quizAttempt.detail.title">Quiz Attempt</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ quizAttempt.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="quizApp.quizAttempt.startTime">Start Time</span></dt>
+          <dd>
+            <span>{{ quizAttempt.startTime | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="quizApp.quizAttempt.endTime">End Time</span></dt>
+          <dd>
+            <span>{{ quizAttempt.endTime | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="quizApp.quizAttempt.score">Score</span></dt>
+          <dd>
+            <span>{{ quizAttempt.score }}</span>
+          </dd>
+          <dt><span jhiTranslate="quizApp.quizAttempt.quiz">Quiz</span></dt>
+          <dd>
+            @if (quizAttempt.quiz) {
+              <div>
+                <a [routerLink]="['/quiz', quizAttempt.quiz.id, 'view']">{{ quizAttempt.quiz.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="quizApp.quizAttempt.user">User</span></dt>
+          <dd>
+            @if (quizAttempt.user) {
+              <div>
+                <a [routerLink]="['/quiz-user', quizAttempt.user.id, 'view']">{{ quizAttempt.user.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/quiz-attempt', quizAttempt.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

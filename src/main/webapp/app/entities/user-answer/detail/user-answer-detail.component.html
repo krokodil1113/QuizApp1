@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (userAnswer) {
+      <div>
+        <h2 data-cy="userAnswerDetailsHeading"><span jhiTranslate="quizApp.userAnswer.detail.title">User Answer</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ userAnswer.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="quizApp.userAnswer.customAnswerText">Custom Answer Text</span></dt>
+          <dd>
+            <span>{{ userAnswer.customAnswerText }}</span>
+          </dd>
+          <dt><span jhiTranslate="quizApp.userAnswer.attempt">Attempt</span></dt>
+          <dd>
+            @if (userAnswer.attempt) {
+              <div>
+                <a [routerLink]="['/quiz-attempt', userAnswer.attempt.id, 'view']">{{ userAnswer.attempt.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="quizApp.userAnswer.question">Question</span></dt>
+          <dd>
+            @if (userAnswer.question) {
+              <div>
+                <a [routerLink]="['/question', userAnswer.question.id, 'view']">{{ userAnswer.question.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="quizApp.userAnswer.selectedAnswer">Selected Answer</span></dt>
+          <dd>
+            @if (userAnswer.selectedAnswer) {
+              <div>
+                <a [routerLink]="['/answer', userAnswer.selectedAnswer.id, 'view']">{{ userAnswer.selectedAnswer.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/user-answer', userAnswer.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

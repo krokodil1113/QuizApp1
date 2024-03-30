@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (quizAnalytics) {
+      <div>
+        <h2 data-cy="quizAnalyticsDetailsHeading"><span jhiTranslate="quizApp.quizAnalytics.detail.title">Quiz Analytics</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ quizAnalytics.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="quizApp.quizAnalytics.totalAttempts">Total Attempts</span></dt>
+          <dd>
+            <span>{{ quizAnalytics.totalAttempts }}</span>
+          </dd>
+          <dt><span jhiTranslate="quizApp.quizAnalytics.averageScore">Average Score</span></dt>
+          <dd>
+            <span>{{ quizAnalytics.averageScore }}</span>
+          </dd>
+          <dt><span jhiTranslate="quizApp.quizAnalytics.completionRate">Completion Rate</span></dt>
+          <dd>
+            <span>{{ quizAnalytics.completionRate }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/quiz-analytics', quizAnalytics.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

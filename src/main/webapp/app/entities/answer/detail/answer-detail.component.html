@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (answer) {
+      <div>
+        <h2 data-cy="answerDetailsHeading"><span jhiTranslate="quizApp.answer.detail.title">Answer</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ answer.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="quizApp.answer.text">Text</span></dt>
+          <dd>
+            <span>{{ answer.text }}</span>
+          </dd>
+          <dt><span jhiTranslate="quizApp.answer.isCorrect">Is Correct</span></dt>
+          <dd>
+            <span>{{ answer.isCorrect }}</span>
+          </dd>
+          <dt><span jhiTranslate="quizApp.answer.question">Question</span></dt>
+          <dd>
+            @if (answer.question) {
+              <div>
+                <a [routerLink]="['/question', answer.question.id, 'view']">{{ answer.question.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/answer', answer.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

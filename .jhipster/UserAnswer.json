@@ -1,0 +1,37 @@
+{
+  "annotations": {
+    "changelogDate": "20240326233233"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "customAnswerText",
+      "fieldType": "String"
+    }
+  ],
+  "name": "UserAnswer",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "quizAttempt",
+      "relationshipName": "attempt",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "question",
+      "relationshipName": "question",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "answer",
+      "relationshipName": "selectedAnswer",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

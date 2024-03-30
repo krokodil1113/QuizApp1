@@ -1,0 +1,31 @@
+{
+  "annotations": {
+    "changelogDate": "20240326233235"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "content",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "createDate",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "name": "Feedback",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "quizUser",
+      "relationshipName": "user",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}
