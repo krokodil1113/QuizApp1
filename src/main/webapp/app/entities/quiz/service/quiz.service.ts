@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 
 import dayjs from 'dayjs/esm';
 
@@ -9,6 +9,8 @@ import { DATE_FORMAT } from 'app/config/input.constants';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IQuiz, NewQuiz } from '../quiz.model';
+
+import { catchError } from 'rxjs/operators';
 
 export type PartialUpdateQuiz = Partial<IQuiz> & Pick<IQuiz, 'id'>;
 
@@ -31,6 +33,16 @@ export class QuizService {
   protected applicationConfigService = inject(ApplicationConfigService);
 
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/quizzes');
+
+  getQuizzesByCategory(categoryId: number): Observable<any[]> {
+    // Consider defining a Quiz interface
+    return this.http.get<any[]>(`${this.resourceUrl}/by-category/${categoryId}`).pipe(
+      catchError(error => {
+        console.error('Error fetching quizzes by category:', error);
+        return of([]); // Providing a fallback value in case of an error
+      }),
+    );
+  }
 
   create(quiz: NewQuiz): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(quiz);

@@ -8,6 +8,8 @@ import HomeComponent from './home/home.component';
 import NavbarComponent from './layouts/navbar/navbar.component';
 import LoginComponent from './login/login.component';
 
+import { DashboardComponent } from './dashboard/dashboard.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -18,6 +20,13 @@ const routes: Routes = [
     path: '',
     component: NavbarComponent,
     outlet: 'navbar',
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    /* title: 'Dashboard', */
+    // Optionally, add canActivate guard to restrict access to authenticated users
+    // canActivate: [UserRouteAccessService],
   },
   {
     path: 'admin',
