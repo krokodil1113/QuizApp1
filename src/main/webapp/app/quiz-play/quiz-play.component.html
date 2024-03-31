@@ -1,0 +1,9 @@
+<div>
+  <h2>{{ currentQuestion?.text }}</h2>
+  <ul>
+    <li *ngFor="let answer of answers" (click)="selectAnswer(answer.id)">
+      {{ answer.text }}
+    </li>
+  </ul>
+  <button (click)="goToNextQuestion()" *ngIf="!isLastQuestion()">Next Question</button>
+</div>

@@ -47,6 +47,11 @@ public class QuestionResource {
         this.questionRepository = questionRepository;
     }
 
+    @GetMapping("/by-quiz/{quizId}")
+    public List<QuestionDTO> getQuestionsByQuizId(@PathVariable Long quizId) {
+        return questionService.findByQuizId(quizId);
+    }
+
     /**
      * {@code POST  /questions} : Create a new question.
      *

@@ -11,6 +11,7 @@ import { createRequestOption } from 'app/core/request/request-util';
 import { IQuiz, NewQuiz } from '../quiz.model';
 
 import { catchError } from 'rxjs/operators';
+import { IQuestion } from 'app/entities/question/question.model';
 
 export type PartialUpdateQuiz = Partial<IQuiz> & Pick<IQuiz, 'id'>;
 

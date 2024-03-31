@@ -12,6 +12,7 @@
     <li *ngFor="let quiz of quizzes">
       {{ quiz.title }}
       <!-- Display other quiz details as needed -->
+      <button (click)="startQuiz(quiz.id)">Start Quiz</button>
     </li>
   </ul>
 </div>

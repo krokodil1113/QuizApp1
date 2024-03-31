@@ -19,6 +19,10 @@ export class QuestionService {
 
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/questions');
 
+  getQuestionsByQuizId(quizId: number): Observable<IQuestion[]> {
+    return this.http.get<IQuestion[]>(`${this.resourceUrl}/by-quiz/${quizId}`);
+  }
+
   create(question: NewQuestion): Observable<EntityResponseType> {
     return this.http.post<IQuestion>(this.resourceUrl, question, { observe: 'response' });
   }

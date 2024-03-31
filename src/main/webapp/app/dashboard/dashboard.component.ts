@@ -9,6 +9,8 @@ import { of } from 'rxjs';
 import { IQuiz } from 'app/entities/quiz/quiz.model';
 import { ICategory } from 'app/entities/category/category.model';
 
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'jhi-dashboard',
   standalone: true,
@@ -24,11 +26,16 @@ export class DashboardComponent {
   constructor(
     private quizService: QuizService,
     private categoryService: CategoryService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
     this.loadCategories();
     // this.loadQuizzesByCategory(this.selectedCategoryId);
+  }
+
+  startQuiz(quizId: number): void {
+    this.router.navigate(['/quiz-play', quizId]);
   }
 
   loadCategories(): void {
