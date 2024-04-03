@@ -13,9 +13,14 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring")
 public interface QuizAttemptMapper extends EntityMapper<QuizAttemptDTO, QuizAttempt> {
-    @Mapping(target = "quiz", source = "quiz", qualifiedByName = "quizId")
+    /*  @Mapping(target = "quiz", source = "quiz", qualifiedByName = "quizId")
     @Mapping(target = "user", source = "user", qualifiedByName = "quizUserId")
     QuizAttemptDTO toDto(QuizAttempt s);
+ */
+
+    @Mapping(target = "quizId", source = "quiz.id")
+    @Mapping(target = "userId", source = "user.id")
+    QuizAttemptDTO toDto(QuizAttempt quizAttempt);
 
     @Named("quizId")
     @BeanMapping(ignoreByDefault = true)

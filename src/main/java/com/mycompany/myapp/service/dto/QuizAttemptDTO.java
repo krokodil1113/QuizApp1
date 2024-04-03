@@ -18,9 +18,8 @@ public class QuizAttemptDTO implements Serializable {
 
     private Integer score;
 
-    private QuizDTO quiz;
-
-    private QuizUserDTO user;
+    private Long quizId; // Use ID instead of the Quiz object
+    private Long quizUser; // Use ID instead of the QuizUser object
 
     public Long getId() {
         return id;
@@ -54,20 +53,20 @@ public class QuizAttemptDTO implements Serializable {
         this.score = score;
     }
 
-    public QuizDTO getQuiz() {
-        return quiz;
+    public Long getQuizId() {
+        return quizId;
     }
 
-    public void setQuiz(QuizDTO quiz) {
-        this.quiz = quiz;
+    public void setQuizId(Long quizId) {
+        this.quizId = quizId;
     }
 
-    public QuizUserDTO getUser() {
-        return user;
+    public Long getUserId() {
+        return quizUser;
     }
 
-    public void setUser(QuizUserDTO user) {
-        this.user = user;
+    public void setUserId(Long quizUser) {
+        this.quizUser = quizUser;
     }
 
     @Override
@@ -99,8 +98,8 @@ public class QuizAttemptDTO implements Serializable {
             ", startTime='" + getStartTime() + "'" +
             ", endTime='" + getEndTime() + "'" +
             ", score=" + getScore() +
-            ", quiz=" + getQuiz() +
-            ", user=" + getUser() +
+            ", quiz=" + getQuizId() +
+            ", user=" + getUserId() +
             "}";
     }
 }

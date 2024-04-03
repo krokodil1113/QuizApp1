@@ -1,9 +1,18 @@
 package com.mycompany.myapp.service;
 
+import com.mycompany.myapp.domain.Quiz;
 import com.mycompany.myapp.domain.QuizAttempt;
+import com.mycompany.myapp.domain.QuizUser;
+import com.mycompany.myapp.domain.User;
 import com.mycompany.myapp.repository.QuizAttemptRepository;
+import com.mycompany.myapp.repository.QuizRepository;
+import com.mycompany.myapp.repository.QuizUserRepository;
+import com.mycompany.myapp.repository.UserRepository;
 import com.mycompany.myapp.service.dto.QuizAttemptDTO;
+import com.mycompany.myapp.service.dto.QuizUserDTO;
 import com.mycompany.myapp.service.mapper.QuizAttemptMapper;
+import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,11 +32,22 @@ public class QuizAttemptService {
 
     private final QuizAttemptRepository quizAttemptRepository;
 
+    private final QuizRepository quizRepository;
+
+    private final QuizUserRepository quizUserRepository;
+
     private final QuizAttemptMapper quizAttemptMapper;
 
-    public QuizAttemptService(QuizAttemptRepository quizAttemptRepository, QuizAttemptMapper quizAttemptMapper) {
+    public QuizAttemptService(
+        QuizAttemptRepository quizAttemptRepository,
+        QuizRepository quizRepository,
+        QuizUserRepository quizUserRepository,
+        QuizAttemptMapper quizAttemptMapper
+    ) {
         this.quizAttemptRepository = quizAttemptRepository;
         this.quizAttemptMapper = quizAttemptMapper;
+        this.quizRepository = quizRepository;
+        this.quizUserRepository = quizUserRepository;
     }
 
     /**
@@ -36,11 +56,23 @@ public class QuizAttemptService {
      * @param quizAttemptDTO the entity to save.
      * @return the persisted entity.
      */
-    public QuizAttemptDTO save(QuizAttemptDTO quizAttemptDTO) {
+    /*  public QuizAttemptDTO save(QuizAttemptDTO quizAttemptDTO) {
         log.debug("Request to save QuizAttempt : {}", quizAttemptDTO);
         QuizAttempt quizAttempt = quizAttemptMapper.toEntity(quizAttemptDTO);
         quizAttempt = quizAttemptRepository.save(quizAttempt);
         return quizAttemptMapper.toDto(quizAttempt);
+    } */
+    public QuizAttemptDTO save(QuizAttemptDTO quizAttemptDTO) {
+        Quiz quiz = quizRepository.findById(quizAttemptDTO.getQuizId()).orElseThrow(() -> new EntityNotFoundException("Quiz not found"));
+        QuizUser user = quizUserRepository
+            .findById(quizAttemptDTO.getUserId())
+            .orElseThrow(() -> new EntityNotFoundException("User not found"));
+
+        QuizAttempt quizAttempt = quizAttemptMapper.toEntity(quizAttemptDTO);
+        quizAttempt.setQuiz(quiz);
+        quizAttempt.setUser(user);
+        QuizAttempt quizAttempt1 = quizAttemptRepository.save(quizAttempt);
+        return quizAttemptMapper.toDto(quizAttempt1);
     }
 
     /**

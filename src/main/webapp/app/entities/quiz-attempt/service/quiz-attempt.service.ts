@@ -32,6 +32,15 @@ export class QuizAttemptService {
 
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/quiz-attempts');
 
+  createQuizAttempt(quizId: number, userId: number) {
+    const attempt = {
+      quizId: quizId,
+      userId: userId,
+      startTime: new Date(), // Current timestamp as the start time
+    };
+    return this.http.post(this.resourceUrl, attempt);
+  }
+
   create(quizAttempt: NewQuizAttempt): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(quizAttempt);
     return this.http

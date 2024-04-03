@@ -21,6 +21,10 @@ export class AccountService {
   private router = inject(Router);
   private applicationConfigService = inject(ApplicationConfigService);
 
+  getCurrentUserId(): Observable<number> {
+    return this.http.get<number>('/api/account/id');
+  }
+
   save(account: Account): Observable<{}> {
     return this.http.post(this.applicationConfigService.getEndpointFor('api/account'), account);
   }

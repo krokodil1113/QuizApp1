@@ -10,6 +10,8 @@ import { IQuiz } from 'app/entities/quiz/quiz.model';
 import { ICategory } from 'app/entities/category/category.model';
 
 import { Router } from '@angular/router';
+import { QuizAttemptService } from 'app/entities/quiz-attempt/service/quiz-attempt.service';
+import { AccountService } from 'app/core/auth/account.service';
 
 @Component({
   selector: 'jhi-dashboard',
@@ -26,6 +28,8 @@ export class DashboardComponent {
   constructor(
     private quizService: QuizService,
     private categoryService: CategoryService,
+    private quizAttemptService: QuizAttemptService,
+    private accountService: AccountService,
     private router: Router,
   ) {}
 
@@ -35,7 +39,24 @@ export class DashboardComponent {
   }
 
   startQuiz(quizId: number): void {
-    this.router.navigate(['/quiz-play', quizId]);
+    // Retrieve the current user's ID
+    this.accountService.getCurrentUserId().subscribe(userId => {
+      console.log('User ID:', userId);
+
+      // Now that you have the userId, you can use it here
+      // For example, creating a quiz attempt
+      this.quizAttemptService.createQuizAttempt(quizId, userId).subscribe(
+        attempt => {
+          console.log('Quiz attempt created:', attempt);
+          // Proceed with navigating to the quiz play component or other logic
+          this.router.navigate(['/quiz-play', quizId]);
+        },
+        (error: any) => {
+          console.error('Failed to create quiz attempt:', error);
+          // Handle any errors, such as showing a notification to the user
+        },
+      );
+    });
   }
 
   loadCategories(): void {
