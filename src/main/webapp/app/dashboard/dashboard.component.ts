@@ -12,6 +12,7 @@ import { ICategory } from 'app/entities/category/category.model';
 import { Router } from '@angular/router';
 import { QuizAttemptService } from 'app/entities/quiz-attempt/service/quiz-attempt.service';
 import { AccountService } from 'app/core/auth/account.service';
+import { IQuizAttempt } from 'app/entities/quiz-attempt/quiz-attempt.model';
 
 @Component({
   selector: 'jhi-dashboard',
@@ -23,7 +24,7 @@ import { AccountService } from 'app/core/auth/account.service';
 export class DashboardComponent {
   quizzes: IQuiz[] = [];
   categories: ICategory[] = [];
-  selectedCategoryId = 1; // Example category ID
+  selectedCategoryId = 0; // Example category ID
 
   constructor(
     private quizService: QuizService,
@@ -39,23 +40,33 @@ export class DashboardComponent {
   }
 
   startQuiz(quizId: number): void {
+    console.log('ASDASDASDASDADDDDDDDDDDDFFFFFFFFFKKKKKKKkkk');
     // Retrieve the current user's ID
-    this.accountService.getCurrentUserId().subscribe(userId => {
-      console.log('User ID:', userId);
+    this.accountService.getCurrentUserId().subscribe({
+      next: userId => {
+        console.log('User ID:', userId);
 
-      // Now that you have the userId, you can use it here
-      // For example, creating a quiz attempt
-      this.quizAttemptService.createQuizAttempt(quizId, userId).subscribe(
-        attempt => {
-          console.log('Quiz attempt created:', attempt);
-          // Proceed with navigating to the quiz play component or other logic
-          this.router.navigate(['/quiz-play', quizId]);
-        },
-        (error: any) => {
-          console.error('Failed to create quiz attempt:', error);
-          // Handle any errors, such as showing a notification to the user
-        },
-      );
+        // Now that you have the userId, use it to create a quiz attempt
+        this.quizAttemptService.createQuizAttempt(quizId, userId).subscribe({
+          next: (attempt: IQuizAttempt) => {
+            console.log(
+              '*******************************************************************Quiz attempt created:*******************************************************************',
+              attempt,
+            );
+            // Navigate with both quizId and attemptId
+            localStorage.setItem('currentAttemptId', attempt.id.toString());
+            this.router.navigate(['/quiz-play', quizId]);
+          },
+          error: error => {
+            console.error('Failed to create quiz attempt:', error);
+            // Handle any errors
+          },
+        });
+      },
+      error: error => {
+        console.error('Failed to retrieve user ID:', error);
+        // Handle any errors in retrieving the user ID
+      },
     });
   }
 

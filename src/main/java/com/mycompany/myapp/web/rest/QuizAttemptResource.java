@@ -45,6 +45,13 @@ public class QuizAttemptResource {
         this.quizAttemptRepository = quizAttemptRepository;
     }
 
+    @GetMapping("/{attemptId}/details")
+    public ResponseEntity<QuizAttemptDTO> getQuizAttemptDetails(@PathVariable Long attemptId) {
+        System.out.println("*****************************QuizAttemptResource************************************");
+        QuizAttemptDTO quizAttemptDTO = quizAttemptService.getQuizAttemptDetails(attemptId);
+        return ResponseEntity.ok(quizAttemptDTO); // Wraps the DTO in a ResponseEntity
+    }
+
     /**
      * {@code POST  /quiz-attempts} : Create a new quizAttempt.
      *

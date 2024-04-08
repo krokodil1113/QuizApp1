@@ -12,6 +12,7 @@ import { IQuiz, NewQuiz } from '../quiz.model';
 
 import { catchError } from 'rxjs/operators';
 import { IQuestion } from 'app/entities/question/question.model';
+import { IQuizAttempt } from 'app/entities/quiz-attempt/quiz-attempt.model';
 
 export type PartialUpdateQuiz = Partial<IQuiz> & Pick<IQuiz, 'id'>;
 

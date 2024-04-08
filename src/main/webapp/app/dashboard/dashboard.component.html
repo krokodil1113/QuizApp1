@@ -1,8 +1,8 @@
 <p>dashboard works!</p>
 
-<label for="category-select">Select a category</label>
+<!-- <label for="category-select">Select a category</label> -->
 <select [(ngModel)]="selectedCategoryId" (change)="loadQuizzesByCategory(selectedCategoryId)" class="form-control" id="category-select">
-  <option value="" disabled selected>Select a category</option>
+  <option value="0" selected>Select a category</option>
   <option *ngFor="let category of categories" [ngValue]="category.id">{{ category.id }} {{ category.name }}</option>
 </select>
 

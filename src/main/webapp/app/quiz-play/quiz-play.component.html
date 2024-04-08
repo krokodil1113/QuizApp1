@@ -1,9 +1,11 @@
 <div>
   <h2>{{ currentQuestion?.text }}</h2>
   <ul>
-    <li *ngFor="let answer of answers" (click)="selectAnswer(answer.id)">
+    <li *ngFor="let answer of answers" [class.selected]="answer.id === selectedAnswerId" (click)="selectAnswer(answer.id)">
       {{ answer.text }}
     </li>
   </ul>
-  <button (click)="goToNextQuestion()" *ngIf="!isLastQuestion()">Next Question</button>
+  <button (click)="submitAnswer()" *ngIf="!isLastQuestion()">Next Question</button>
+  <!--  Include a button for the last question to submit the answer  -->
+  <button (click)="submitAnswer()" *ngIf="isLastQuestion()">Submit Answer</button>
 </div>
