@@ -48,6 +48,17 @@ public class QuizResource {
         this.quizRepository = quizRepository;
     }
 
+    @GetMapping("/generate")
+    public ResponseEntity<?> generateQuiz(@RequestParam String topic) {
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
+        try {
+            Object quiz = quizService.generateQuiz(topic);
+            return ResponseEntity.ok(quiz);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error generating quiz: " + e.getMessage());
+        }
+    }
+
     @GetMapping("/by-category/{categoryId}")
     public ResponseEntity<List<Quiz>> getQuizzesByCategory(@PathVariable Long categoryId) {
         List<Quiz> quizzes = quizRepository.findByCategoryId(categoryId);

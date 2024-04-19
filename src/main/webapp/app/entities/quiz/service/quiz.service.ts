@@ -36,6 +36,11 @@ export class QuizService {
 
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/quizzes');
 
+  generateQuiz(topic: string): Observable<any> {
+    // Define a more specific type or use any if the structure is dynamic
+    return this.http.get(`${this.resourceUrl}/generate`, { params: { topic } });
+  }
+
   getQuizzesByCategory(categoryId: number): Observable<any[]> {
     // Consider defining a Quiz interface
     return this.http.get<any[]>(`${this.resourceUrl}/by-category/${categoryId}`).pipe(

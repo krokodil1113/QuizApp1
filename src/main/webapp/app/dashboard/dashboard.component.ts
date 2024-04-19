@@ -13,11 +13,12 @@ import { Router } from '@angular/router';
 import { QuizAttemptService } from 'app/entities/quiz-attempt/service/quiz-attempt.service';
 import { AccountService } from 'app/core/auth/account.service';
 import { IQuizAttempt } from 'app/entities/quiz-attempt/quiz-attempt.model';
+import { QuizGeneratorComponent } from 'app/quiz-generator/quiz-generator.component';
 
 @Component({
   selector: 'jhi-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, QuizGeneratorComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })

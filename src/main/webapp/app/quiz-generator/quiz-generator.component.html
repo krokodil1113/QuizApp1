@@ -1,0 +1,17 @@
+<p>quiz-generator works!</p>
+<div>
+  <h1>Generate a Quiz</h1>
+  <input type="text" [(ngModel)]="topic" placeholder="Enter topic" *ngIf="allowTextInput" />
+  <!-- <select [(ngModel)]="topic" *ngIf="!allowTextInput">
+      <option *ngFor="let topic of topics" [value]="topic">{{ topic }}</option>
+    </select> -->
+  <button (click)="generateQuiz()">Generate Quiz</button>
+
+  <div *ngIf="loading" class="loading">Loading...</div>
+
+  <div *ngIf="quiz">
+    <!-- Display quiz questions here -->
+  </div>
+
+  <div *ngIf="error" class="error">Error generating quiz. Please try again.</div>
+</div>
