@@ -1,11 +1,20 @@
 package com.mycompany.myapp.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mycompany.myapp.domain.Answer;
+import com.mycompany.myapp.domain.Question;
 import com.mycompany.myapp.domain.Quiz;
+import com.mycompany.myapp.repository.AnswerRepository;
+import com.mycompany.myapp.repository.QuestionRepository;
 import com.mycompany.myapp.repository.QuizRepository;
 import com.mycompany.myapp.service.dto.QuizDTO;
 import com.mycompany.myapp.service.mapper.QuizMapper;
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.Optional;
+import main.java.com.mycompany.myapp.service.dtoLLM.LLMQuestionDTO;
+import main.java.com.mycompany.myapp.service.dtoLLM.LLMQuizDTO;
+import main.java.com.mycompany.myapp.service.dtoLLM.LLMQuizWrapperDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -27,12 +36,24 @@ public class QuizService {
 
     private final QuizRepository quizRepository;
 
+    private final QuestionRepository questionRepository;
+
+    private final AnswerRepository answerRepository;
+
     private final QuizMapper quizMapper;
 
     private final WebClient webClient;
 
-    public QuizService(QuizRepository quizRepository, QuizMapper quizMapper, WebClient.Builder webClientBuilder) {
+    public QuizService(
+        QuizRepository quizRepository,
+        QuestionRepository questionRepository,
+        AnswerRepository answerRepository,
+        QuizMapper quizMapper,
+        WebClient.Builder webClientBuilder
+    ) {
         this.quizRepository = quizRepository;
+        this.questionRepository = questionRepository;
+        this.answerRepository = answerRepository;
         this.quizMapper = quizMapper;
         this.webClient = webClientBuilder.baseUrl("http://127.0.0.1:5000").build();
     }
@@ -85,28 +106,78 @@ public class QuizService {
                 });
     } */
 
-    public String generateQuiz(String topic) {
+    public LLMQuizDTO generateQuizData(String topic) {
         System.out.println("**************************** " + topic);
         try {
             String responseBody = webClient
                 .get()
-                .uri(uriBuilder -> uriBuilder.path("/process_topic/{topic}").build(topic))
-                .header("Accept", "application/json") // Ensure we accept JSON responses
-                .retrieve() // Initiate the request
+                .uri(uriBuilder -> uriBuilder.path("/process_topic").queryParam("topic", topic).build())
+                .header("Accept", "application/json")
+                .retrieve()
                 .onStatus(
                     status -> status.isError(),
                     clientResponse -> Mono.error(new RuntimeException("Error occurred with status: " + clientResponse.statusCode()))
                 )
-                .bodyToMono(String.class) // Extract the body to Mono
-                .block(); // Block until the mono is completed and return the result directly
+                .bodyToMono(String.class)
+                .block();
 
-            // Print the response which is assumed to be JSON
             System.out.println("Received JSON Response: " + responseBody);
-            return responseBody; // Return the JSON response
+
+            ObjectMapper mapper = new ObjectMapper();
+            LLMQuizWrapperDTO quizWrapper = mapper.readValue(responseBody, LLMQuizWrapperDTO.class);
+            String nestedJson = quizWrapper.getMessage(); // this should be the actual JSON string
+
+            // Parse the nested JSON string
+            LLMQuizDTO quiz = mapper.readValue(nestedJson, LLMQuizDTO.class);
+            printQuizDetails(quiz);
+
+            return quiz;
         } catch (Exception e) {
-            // Log and handle exception appropriately
             System.err.println("Error during API call: " + e.getMessage());
-            return "{\"error\":\"Failed to generate quiz due to server error.\"}";
+            throw new RuntimeException("Failed to generate quiz due to server error.", e);
+        }
+    }
+
+    @Transactional
+    public Quiz createAndSaveQuizFromExternalSource(String topic) {
+        try {
+            LLMQuizDTO quizData = generateQuizData(topic); // This now correctly receives a DTO
+
+            // Create a new Quiz entity
+            Quiz quiz = new Quiz();
+            quiz.setTitle(topic);
+            quiz.setIsPublished(true);
+            quiz.setPublishDate(LocalDate.now());
+            quizRepository.save(quiz);
+
+            // Process and save each question and its answers
+            for (LLMQuestionDTO questionDTO : quizData.getQuestions()) {
+                Question question = new Question();
+                question.setText(questionDTO.getQuestion());
+                question.setQuiz(quiz);
+                questionRepository.save(question);
+
+                for (String option : questionDTO.getOptions()) {
+                    Answer answer = new Answer();
+                    answer.setText(option);
+                    answer.setIsCorrect(option.equals(questionDTO.getCorrectAnswer()));
+                    answer.setQuestion(question);
+                    answerRepository.save(answer);
+                }
+            }
+
+            return quiz; // Return the newly created quiz with ID
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to create quiz", e);
+        }
+    }
+
+    private void printQuizDetails(LLMQuizDTO quiz) {
+        System.out.println("Quiz Data:");
+        for (LLMQuestionDTO question : quiz.getQuestions()) {
+            System.out.println("Question: " + question.getQuestion());
+            System.out.println("Options: " + question.getOptions());
+            System.out.println("Correct Answer: " + question.getCorrectAnswer());
         }
     }
 

@@ -52,7 +52,7 @@ public class QuizResource {
     public ResponseEntity<?> generateQuiz(@RequestParam String topic) {
         System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
         try {
-            Object quiz = quizService.generateQuiz(topic);
+            Object quiz = quizService.createAndSaveQuizFromExternalSource(topic);
             return ResponseEntity.ok(quiz);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error generating quiz: " + e.getMessage());
