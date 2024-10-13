@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (gameSession) {
+      <div>
+        <h2 data-cy="gameSessionDetailsHeading"><span jhiTranslate="quizApp.gameSession.detail.title">Game Session</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ gameSession.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="quizApp.gameSession.startTime">Start Time</span></dt>
+          <dd>
+            <span>{{ gameSession.startTime | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="quizApp.gameSession.endTime">End Time</span></dt>
+          <dd>
+            <span>{{ gameSession.endTime | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="quizApp.gameSession.status">Status</span></dt>
+          <dd>
+            <span>{{ gameSession.status }}</span>
+          </dd>
+          <dt><span jhiTranslate="quizApp.gameSession.currentQuestionIndex">Current Question Index</span></dt>
+          <dd>
+            <span>{{ gameSession.currentQuestionIndex }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/game-session', gameSession.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,27 @@
+{
+  "quizApp": {
+    "gameSession": {
+      "home": {
+        "title": "Game Sessions",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Game Session",
+        "createOrEditLabel": "Create or edit a Game Session",
+        "notFound": "No Game Sessions found"
+      },
+      "created": "A new Game Session is created with identifier {{ param }}",
+      "updated": "A Game Session is updated with identifier {{ param }}",
+      "deleted": "A Game Session is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Game Session {{ id }}?"
+      },
+      "detail": {
+        "title": "Game Session"
+      },
+      "id": "ID",
+      "startTime": "Start Time",
+      "endTime": "End Time",
+      "status": "Status",
+      "currentQuestionIndex": "Current Question Index"
+    }
+  }
+}
