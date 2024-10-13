@@ -12,6 +12,11 @@ const routes: Routes = [
     loadChildren: () => import('./quiz/quiz.routes'),
   },
   {
+    path: 'game-session',
+    data: { pageTitle: 'quizApp.gameSession.home.title' },
+    loadChildren: () => import('./game-session/game-session.routes'),
+  },
+  {
     path: 'category',
     data: { pageTitle: 'quizApp.category.home.title' },
     loadChildren: () => import('./category/category.routes'),

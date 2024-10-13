@@ -18,7 +18,8 @@
         "feedback": "Feedback",
         "quizAnalytics": "Quiz Analytics",
         "quizUser": "Quiz User",
-        "userStatistics": "User Statistics"
+        "userStatistics": "User Statistics",
+        "gameSession": "Game Session"
       },
       "account": {
         "main": "Account",

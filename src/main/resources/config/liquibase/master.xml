@@ -28,6 +28,7 @@
     <include file="config/liquibase/changelog/20240326233236_added_entity_QuizAnalytics.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20240326233237_added_entity_QuizUser.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20240326233238_added_entity_UserStatistics.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241012145310_added_entity_GameSession.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20240326233228_added_entity_constraints_Quiz.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20240326233230_added_entity_constraints_Question.xml" relativeToChangelogFile="false"/>
@@ -38,6 +39,8 @@
     <include file="config/liquibase/changelog/20240326233235_added_entity_constraints_Feedback.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20240326233237_added_entity_constraints_QuizUser.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20240326233238_added_entity_constraints_UserStatistics.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241012145310_added_entity_constraints_GameSession.xml" relativeToChangelogFile="false"/>
+
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>
