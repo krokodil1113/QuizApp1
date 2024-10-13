@@ -4,7 +4,9 @@ import com.mycompany.myapp.domain.Answer;
 import com.mycompany.myapp.repository.AnswerRepository;
 import com.mycompany.myapp.service.dto.AnswerDTO;
 import com.mycompany.myapp.service.mapper.AnswerMapper;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -28,6 +30,14 @@ public class AnswerService {
     public AnswerService(AnswerRepository answerRepository, AnswerMapper answerMapper) {
         this.answerRepository = answerRepository;
         this.answerMapper = answerMapper;
+    }
+
+    public List<AnswerDTO> findAnswersByQuestionId(Long questionId) {
+        return answerRepository
+            .findByQuestionId(questionId)
+            .stream()
+            .map(answerMapper::toDto) // Assuming you're using MapStruct or similar
+            .collect(Collectors.toList());
     }
 
     /**

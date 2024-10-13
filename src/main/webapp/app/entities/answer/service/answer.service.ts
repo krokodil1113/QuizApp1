@@ -6,6 +6,7 @@ import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IAnswer, NewAnswer } from '../answer.model';
+import { IQuestion } from 'app/entities/question/question.model';
 
 export type PartialUpdateAnswer = Partial<IAnswer> & Pick<IAnswer, 'id'>;
 
@@ -18,6 +19,10 @@ export class AnswerService {
   protected applicationConfigService = inject(ApplicationConfigService);
 
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/answers');
+
+  getAnswersByQuestionId(questionId: number): Observable<IQuestion[]> {
+    return this.http.get<IAnswer[]>(`${this.resourceUrl}/by-question/${questionId}`);
+  }
 
   create(answer: NewAnswer): Observable<EntityResponseType> {
     return this.http.post<IAnswer>(this.resourceUrl, answer, { observe: 'response' });

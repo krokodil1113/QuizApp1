@@ -32,6 +32,19 @@ export class QuizAttemptService {
 
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/quiz-attempts');
 
+  getQuizAttemptDetails(attemptId: number): Observable<IQuizAttempt> {
+    return this.http.get<IQuizAttempt>(`${this.resourceUrl}/${attemptId}/details`);
+  }
+
+  createQuizAttempt(quizId: number, userId: number): Observable<IQuizAttempt> {
+    const attempt = {
+      quizId: quizId,
+      userId: userId,
+      startTime: new Date(), // Current timestamp as the start time
+    };
+    return this.http.post<IQuizAttempt>(this.resourceUrl, attempt);
+  }
+
   create(quizAttempt: NewQuizAttempt): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(quizAttempt);
     return this.http

@@ -47,6 +47,11 @@ public class AnswerResource {
         this.answerRepository = answerRepository;
     }
 
+    @GetMapping("/by-question/{questionId}")
+    public List<AnswerDTO> getAnswersByQuestionId(@PathVariable Long questionId) {
+        return answerService.findAnswersByQuestionId(questionId);
+    }
+
     /**
      * {@code POST  /answers} : Create a new answer.
      *

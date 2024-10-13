@@ -11,6 +11,8 @@ import { createRequestOption } from 'app/core/request/request-util';
 import { IQuiz, NewQuiz } from '../quiz.model';
 
 import { catchError } from 'rxjs/operators';
+import { IQuestion } from 'app/entities/question/question.model';
+import { IQuizAttempt } from 'app/entities/quiz-attempt/quiz-attempt.model';
 
 export type PartialUpdateQuiz = Partial<IQuiz> & Pick<IQuiz, 'id'>;
 
@@ -33,6 +35,11 @@ export class QuizService {
   protected applicationConfigService = inject(ApplicationConfigService);
 
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/quizzes');
+
+  generateQuiz(topic: string): Observable<any> {
+    // Define a more specific type or use any if the structure is dynamic
+    return this.http.get(`${this.resourceUrl}/generate`, { params: { topic } });
+  }
 
   getQuizzesByCategory(categoryId: number): Observable<any[]> {
     // Consider defining a Quiz interface
