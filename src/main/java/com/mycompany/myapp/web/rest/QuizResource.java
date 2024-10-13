@@ -1,5 +1,6 @@
 package com.mycompany.myapp.web.rest;
 
+import com.mycompany.myapp.domain.Quiz;
 import com.mycompany.myapp.repository.QuizRepository;
 import com.mycompany.myapp.service.QuizService;
 import com.mycompany.myapp.service.dto.QuizDTO;
@@ -45,6 +46,23 @@ public class QuizResource {
     public QuizResource(QuizService quizService, QuizRepository quizRepository) {
         this.quizService = quizService;
         this.quizRepository = quizRepository;
+    }
+
+    @GetMapping("/generate")
+    public ResponseEntity<?> generateQuiz(@RequestParam String topic) {
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
+        try {
+            Object quiz = quizService.createAndSaveQuizFromExternalSource(topic);
+            return ResponseEntity.ok(quiz);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error generating quiz: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/by-category/{categoryId}")
+    public ResponseEntity<List<Quiz>> getQuizzesByCategory(@PathVariable Long categoryId) {
+        List<Quiz> quizzes = quizRepository.findByCategoryId(categoryId);
+        return ResponseEntity.ok().body(quizzes);
     }
 
     /**

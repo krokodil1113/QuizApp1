@@ -9,6 +9,8 @@ import NavbarComponent from './layouts/navbar/navbar.component';
 import LoginComponent from './login/login.component';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { QuizPlayComponent } from './quiz-play/quiz-play.component';
+import { QuizResultComponent } from './quiz-result/quiz-result.component';
 
 const routes: Routes = [
   {
@@ -28,6 +30,11 @@ const routes: Routes = [
     // Optionally, add canActivate guard to restrict access to authenticated users
     // canActivate: [UserRouteAccessService],
   },
+
+  { path: 'quiz-play/:quizId', component: QuizPlayComponent },
+
+  { path: 'quiz-result/:attemptId', component: QuizResultComponent },
+
   {
     path: 'admin',
     data: {

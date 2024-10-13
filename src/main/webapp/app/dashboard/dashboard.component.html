@@ -1,11 +1,23 @@
 <p>dashboard works!</p>
 
-<div class="quiz-selection">
-  <h2>Quizzes by Category</h2>
+<!-- <label for="category-select">Select a category</label> -->
+<select [(ngModel)]="selectedCategoryId" (change)="loadQuizzesByCategory(selectedCategoryId)" class="form-control" id="category-select">
+  <option value="0" selected>Select a category</option>
+  <option *ngFor="let category of categories" [ngValue]="category.id">{{ category.id }} {{ category.name }}</option>
+</select>
+
+<!-- Quizzes List -->
+<div *ngIf="quizzes.length; else noQuizzes">
   <ul>
     <li *ngFor="let quiz of quizzes">
       {{ quiz.title }}
-      <!-- Add more quiz details as needed -->
+      <!-- Display other quiz details as needed -->
+      <button (click)="startQuiz(quiz.id)">Start Quiz</button>
     </li>
   </ul>
 </div>
+<ng-template #noQuizzes>
+  <p>No quizzes available for this category.</p>
+</ng-template>
+
+<jhi-quiz-generator></jhi-quiz-generator>

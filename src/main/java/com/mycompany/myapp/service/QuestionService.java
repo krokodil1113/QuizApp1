@@ -4,7 +4,9 @@ import com.mycompany.myapp.domain.Question;
 import com.mycompany.myapp.repository.QuestionRepository;
 import com.mycompany.myapp.service.dto.QuestionDTO;
 import com.mycompany.myapp.service.mapper.QuestionMapper;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -28,6 +30,16 @@ public class QuestionService {
     public QuestionService(QuestionRepository questionRepository, QuestionMapper questionMapper) {
         this.questionRepository = questionRepository;
         this.questionMapper = questionMapper;
+    }
+
+    public List<QuestionDTO> findByQuizId(Long quizId) {
+        // Assuming you have a method in your repository to find questions by quiz ID.
+        // Convert entities to DTOs as necessary.
+        return questionRepository
+            .findByQuizId(quizId)
+            .stream()
+            .map(questionMapper::toDto) // Assuming you're using MapStruct or similar
+            .collect(Collectors.toList());
     }
 
     /**

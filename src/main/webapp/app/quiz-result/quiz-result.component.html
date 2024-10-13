@@ -1,0 +1,15 @@
+<p>quiz-result works!</p>
+
+<div>
+  <h2>Your Quiz Results</h2>
+  <p>Your score: {{ score }}/{{ totalQuestions }}</p>
+  <div *ngFor="let question of questions; let i = index">
+    <p>Question {{ i + 1 }}: {{ question.text }}</p>
+    <p>Your answer: {{ question.userAnswer }}</p>
+    <p>Correct answer: {{ question.correctAnswer }}</p>
+    <p *ngIf="question.isCorrect">✅ Correct</p>
+    <p *ngIf="!question.isCorrect">❌ Incorrect</p>
+  </div>
+  <button (click)="retakeQuiz()">Retake Quiz</button>
+  <!-- Further elements for social sharing, recommendations, etc. -->
+</div>

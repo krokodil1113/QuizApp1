@@ -19,6 +19,19 @@ export class UserAnswerService {
 
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/user-answers');
 
+  saveUserAnswer(attemptId: number, questionId: number, selectedAnswerId: number, customAnswerText?: string): Observable<any> {
+    // Construct the UserAnswerDTO object
+    const userAnswer: NewUserAnswer = {
+      id: null, // Add this line to match the NewUserAnswer type
+      attempt: { id: attemptId },
+      question: { id: questionId },
+      selectedAnswer: { id: selectedAnswerId },
+      customAnswerText: customAnswerText || null, // Ensure this is null if undefined, to match the type
+    };
+
+    return this.http.post<IUserAnswer>(this.resourceUrl, userAnswer);
+  }
+
   create(userAnswer: NewUserAnswer): Observable<EntityResponseType> {
     return this.http.post<IUserAnswer>(this.resourceUrl, userAnswer, { observe: 'response' });
   }
